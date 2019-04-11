@@ -1,5 +1,6 @@
 /public/hot
 /public/storage
+/resources/assets/node_modules
 /storage/*.key
 /vendor
 .phpunit.result.cache
