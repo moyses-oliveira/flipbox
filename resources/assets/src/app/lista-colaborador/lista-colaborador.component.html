@@ -1,0 +1,29 @@
+<div>
+  <span class="help is-info" *ngIf="isLoading">Loading...</span>
+  <span class="help is-error" *ngIf="errorMessage">{{ errorMessage }}</span>
+  <table class="table" *ngIf="!isLoading && !errorMessage">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Answers</th>
+      <th>Points</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of collection">
+      <td>{{ row.id }}</td>
+      <td>{{ row.nome }}</td>
+      <td>{{ row.PIS}}</td>
+      <td>{{ row.CPF }}</td>
+      <td>{{ row.equipe }}</td>
+      <td>{{ row.cargo }}</td>
+      <td>
+        <button class="button is-primary">Edit</button>
+        <button class="button is-primary">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
