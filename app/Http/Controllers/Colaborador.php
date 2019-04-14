@@ -9,7 +9,7 @@
 namespace App\Http\Controllers;
 
 use \App\Models\Colaborador as Model;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class Colaborador
 {
@@ -19,17 +19,17 @@ class Colaborador
         return Model::get()->toArray();
     }
 
-    public function load(?int $id)
+    public function load(int $id)
     {
         $model = Model::findOrNew($id);
         return $model->toArray();
     }
 
-    public function save(Request $request, ?int $id)
+    public function save(Request $request, ?int $id = null)
     {
         try {
             $model = Model::findOrNew($id);
-            $model->fill($request->post());
+            $model->fill(request()->post());
             $model->save();
             return response()->json($model->toArray());
         } catch (\Exception $e) {

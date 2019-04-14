@@ -13,7 +13,9 @@
 Route::any( "/", function(){
     return view('index');
 });
+
 Route::any( "/{path}", function($path){
     return view('index');
 })->where('path', '.+');
+
 

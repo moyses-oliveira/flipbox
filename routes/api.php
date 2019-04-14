@@ -14,6 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::get('colaborador/listing', ['uses' => 'Colaborador@listing', 'as' => 'colaborador']);
-Route::get('colaborador/load/{?id}', ['uses' => 'Colaborador@form', 'as' => 'colaborador']);
+Route::get('colaborador/load/{id}', ['uses' => 'Colaborador@load', 'as' => 'colaborador']);
 Route::delete('colaborador/delete/{id}', ['uses' => 'Colaborador@index', 'as' => 'colaborador']);
-Route::post('colaborador/save/{?id}', ['uses' => 'Colaborador@index', 'as' => 'colaborador']);
+Route::post('colaborador/save/{id?}', ['uses' => 'Colaborador@save', 'as' => 'colaborador']);

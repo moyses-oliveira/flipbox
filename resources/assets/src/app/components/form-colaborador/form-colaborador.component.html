@@ -1,0 +1,43 @@
+<!-- Default form contact -->
+<form class=" border border-light p-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <p class="h4 mb-4">{{ title }}</p>
+
+    <input type="hidden" id="field-id" formControlName="id" />
+    <div class="row">
+        <div class="form-group col-sm">
+            <label>Nome</label>
+            <input type="text" id="field-name" class="form-control mb-4" placeholder="Lipsun" formControlName="nome" />
+            <mdb-error *ngIf="nome.invalid && (nome.dirty || nome.touched)">Input invalid</mdb-error>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm">
+            <label>PIS</label>
+            <input type="text" id="field-PIS" class="form-control mb-4" placeholder="000.00000.00-0" [dropSpecialCharacters]="false" formControlName="PIS" mask="000.00000.00-0" />
+            <mdb-error *ngIf="PIS.invalid && (PIS.dirty || PIS.touched)"> invalid</mdb-error>
+        </div>
+
+        <div class="form-group col-sm">
+            <label>CPF</label>
+            <input type="text" id="field-CPF" class="form-control mb-4" placeholder="000.000.000-00" [dropSpecialCharacters]="false" formControlName="CPF" mask="000.000.000-00" />
+            <mdb-error *ngIf="CPF.invalid && (CPF.dirty || CPF.touched)"> invalid</mdb-error>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm">
+            <label>Cargo</label>
+            <input type="text" id="field-cargo" class="form-control mb-4" placeholder="Ex: Vendedor" formControlName="cargo" />
+        </div>
+
+        <div class="form-group col-sm">
+            <label>Equipe</label>
+            <input type="text" id="field-equipe" class="form-control mb-4" placeholder="Ex: Vendas" formControlName="equipe" />
+        </div>
+    </div>
+
+    <!-- Send button -->
+    <button class="btn btn-info btn-block" type="submit">Salvar</button>
+
+</form>
+<!-- Default form contact -->
