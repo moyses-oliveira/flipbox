@@ -26,8 +26,8 @@ export class ColaboradorService {
         });
     }
 
-    save(data:Colaborador, id:number): Observable<Colaborador> {
-        return this.http.post<Colaborador>(API_URL + '/colaborador/save' + (id ? '/' + id : ''), data, {
+    save(data:Colaborador, id:number): Observable<object> {
+        return this.http.post<object>(API_URL + '/colaborador/save' + (id ? '/' + id : ''), data, {
             headers: {'Accept': 'application/json'}
         });
     }

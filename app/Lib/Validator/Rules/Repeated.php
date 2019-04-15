@@ -36,6 +36,9 @@ class Repeated implements Rule
 
     public function passes($attribute, $value)
     {
+        if(empty($value))
+            return true;
+
         $model = $this->getModel();
         $qb = $model->newModelQuery();
         $qb->where($this->getColumn($attribute), 'LIKE', $value);
@@ -51,7 +54,7 @@ class Repeated implements Rule
 
     public function message()
     {
-        return 'REPEATED';
+        return __('validation.rules.repeated');
     }
 
     /**

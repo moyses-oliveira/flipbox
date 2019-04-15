@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Colaborador} from "../../models/colaborador";
-import {ColaboradorService} from "../../services/colaborador.service";
+import {ColaboradorService} from "../../../services/colaborador.service";
+import {Colaborador} from "../../../models/colaborador";
 
 @Component({
-  selector: 'app-lista-colaborador',
-  templateUrl: './lista-colaborador.component.html',
-  styleUrls: ['./lista-colaborador.component.css']
+  selector: 'app-colaborador-lista',
+  templateUrl: './lista.component.html',
+  styleUrls: ['./lista.component.css']
 })
 
-export class ListaColaboradorComponent implements OnInit {
+export class ListaComponent implements OnInit {
 
     collection: Colaborador[];
     errorMessage: string;

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class Colaborador
 {
 
-    public function save(Model $model, array $input)
+    public function save(Model $model, array $input):array
     {
         $validator = $this->validate($model, $input);
         $success = $validator->passes();
@@ -30,7 +30,13 @@ class Colaborador
 
     protected function validate(Model $model, array $input)
     {
-        $labels = ['nome' => 'Alias'];
+        $labels = [
+            'nome' => 'Nome',
+            'PIS' => 'PIS',
+            'CPF' => 'CPF',
+            'cargo' => 'Cargo',
+            'equipe' => 'Equipe'
+        ];
 
         return Validator::make($input, [
             'nome' => ['required', 'string', 'max:255'],

@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use \App\Models\Colaborador as Model;
+use App\Models\ColaboradorPonto;
 use Illuminate\Http\Request;
 
 class Colaborador
@@ -29,9 +30,9 @@ class Colaborador
     {
         try {
             $model = Model::findOrNew($id);
-            $model->fill(request()->post());
-            $model->save();
-            return response()->json($model->toArray());
+            $recorder = new \App\Recorder\Colaborador();
+            $response = $recorder->save($model, $request->post());
+            return response()->json($response);
         } catch (\Exception $e) {
             return response()->json($e);
         }
@@ -46,5 +47,9 @@ class Colaborador
         } catch (\Exception $e) {
             return response()->json($e);
         }
+    }
+
+    public function lancamentos($colaborador) {
+        return ColaboradorPonto::where('fkColaborador','=', $colaborador)->get()->toArray();
     }
 }

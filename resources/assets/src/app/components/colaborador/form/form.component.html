@@ -8,20 +8,26 @@
         <div class="form-group col-sm">
             <label>Nome</label>
             <input type="text" id="field-name" class="form-control mb-4" placeholder="Lipsun" formControlName="nome" />
-            <mdb-error *ngIf="nome.invalid && (nome.dirty || nome.touched)">Input invalid</mdb-error>
+            <mdb-error *ngIf="nome.invalid && (nome.dirty || nome.touched)">Este campo é obrigatório</mdb-error>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm">
             <label>PIS</label>
             <input type="text" id="field-PIS" class="form-control mb-4" placeholder="000.00000.00-0" [dropSpecialCharacters]="false" formControlName="PIS" mask="000.00000.00-0" />
-            <mdb-error *ngIf="PIS.invalid && (PIS.dirty || PIS.touched)"> invalid</mdb-error>
+            <mdb-error *ngIf="PIS.invalid && (PIS.dirty || PIS.touched) && !PIS.errors?.server">Valor inválido</mdb-error>
+            <mdb-error *ngIf="PIS.errors?.server">
+                {{ PIS.errors?.server }}
+            </mdb-error>
         </div>
 
         <div class="form-group col-sm">
             <label>CPF</label>
             <input type="text" id="field-CPF" class="form-control mb-4" placeholder="000.000.000-00" [dropSpecialCharacters]="false" formControlName="CPF" mask="000.000.000-00" />
-            <mdb-error *ngIf="CPF.invalid && (CPF.dirty || CPF.touched)"> invalid</mdb-error>
+            <mdb-error *ngIf="CPF.invalid && (CPF.dirty || CPF.touched) && !CPF.errors?.server">Valor inválido</mdb-error>
+            <mdb-error *ngIf="CPF.invalid && CPF.errors?.server">
+                {{ CPF.errors?.server }}
+            </mdb-error>
         </div>
     </div>
     <div class="row">

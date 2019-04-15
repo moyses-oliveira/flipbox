@@ -5,21 +5,34 @@ import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import {ListaColaboradorComponent} from "./components/lista-colaborador/lista-colaborador.component";
-import {FormColaboradorComponent} from "./components/form-colaborador/form-colaborador.component";
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
+import {
+    ListaComponent as ColaboradorLista,
+    FormComponent as ColaboradorForm,
+    EntradaComponent as ColaboradorEntrada,
+    LancamentosComponent as ColaboradorLancamentos
+} from "./components/colaborador/components";
+import { EntradaComponent } from './components/colaborador/entrada/entrada.component';
 
 const routes: Routes = [
-    { path: '', component: ListaColaboradorComponent, pathMatch: 'full' },
-    { path: 'novo', component: FormColaboradorComponent},
-    { path: 'editar/:id', component: FormColaboradorComponent},
+    { path: '', component: ColaboradorLista, pathMatch: 'full' },
+    { path: 'novo', component: ColaboradorForm},
+    { path: 'editar/:id', component: ColaboradorForm},
+    { path: 'lancamentos/:colaborador', component: ColaboradorLancamentos},
+    { path: 'lancamentos/novo/:colaborador', component: ColaboradorEntrada},
+    { path: 'lancamentos/editar/:colaborador/:id', component: ColaboradorEntrada},
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    ListaColaboradorComponent,
-    FormColaboradorComponent
+    ColaboradorLista,
+    ColaboradorForm,
+      ColaboradorEntrada,
+    ColaboradorLancamentos,
+    EntradaComponent
   ],
   imports: [
     BrowserModule,

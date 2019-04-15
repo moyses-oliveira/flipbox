@@ -1,17 +1,17 @@
 import {FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
-import {Colaborador} from "../../models/colaborador";
-import {ColaboradorService} from "../../services/colaborador.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
+import {ColaboradorService} from "../../../services/colaborador.service";
+import {Colaborador} from "../../../models/colaborador";
 
 @Component({
-    selector: 'app-form-colaborador',
-    templateUrl: './form-colaborador.component.html',
-    styleUrls: ['./form-colaborador.component.css']
+    selector: 'app-colaborador-form',
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.css']
 })
 
-export class FormColaboradorComponent implements OnInit {
+export class FormComponent implements OnInit {
 
     id: number;
 
@@ -90,26 +90,20 @@ export class FormColaboradorComponent implements OnInit {
             return;
         }
 
-        let obs:Observable<Colaborador> = this.colaboradorService.save(this.form.value as Colaborador, this.id);
-        obs.subscribe((value) => (
-            this.router.navigate(['/'])
-        ))
+        let obs:Observable<object> = this.colaboradorService.save(this.form.value as Colaborador, this.id);
+        obs.subscribe((value) => {
+            if(!value['success']) {
+                if(value['errors']['PIS'])
+                    this.form.get('PIS').setErrors({"server": value['errors']['PIS'][0]});
+
+                if(value['errors']['CPF'])
+                    this.form.get('CPF').setErrors({"server": value['errors']['CPF'][0]});
+
+                console.log(this.form.errors);
+                return;
+
+            }
+            //this.router.navigate(['/'])
+        })
     }
-
-    /*
-
-    onSubmit() {
-        let data = {
-            id: 0,
-            nome: '',
-            CPF: '',
-            PIS: '',
-            equipe: '',
-            cargo: ''
-        } as Colaborador;
-
-        this.colaboradorService.save(data);
-    }
-    */
-
 }
