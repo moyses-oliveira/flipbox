@@ -7,15 +7,17 @@
     <title>Flipbox</title>
     <base href="/">
     <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-    </head>
-<body>
-<app-root></app-root>
-{!!
-    Html::script('dist/runtime.js') .
-    Html::script('dist/polyfills.js') .
-    Html::script('dist/styles.js') .
-    Html::script('dist/vendor.js') .
-    Html::script('dist/main.js')
-!!}
+    {!! Html::style('dist/styles.css') !!}
+        </head>
+    <body>
+    <app-root></app-root>
+    {!!
+        Html::script('dist/runtime.js') .
+        Html::script('dist/polyfills.js') .
+        Html::script('dist/styles.js') .
+        Html::script('dist/scripts.js') .
+        Html::script('dist/vendor.js') .
+        Html::script('dist/main.js')
+    !!}
 </body>
 </html>

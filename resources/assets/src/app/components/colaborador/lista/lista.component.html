@@ -1,7 +1,6 @@
 <div>
-    <span class="help is-info" *ngIf="isLoading">Loading...</span>
     <span class="help is-error" *ngIf="errorMessage">{{ errorMessage }}</span>
-    <table class="table" *ngIf="!isLoading && !errorMessage">
+    <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -29,7 +28,7 @@
                             [routerLink]="['/lancamentos', row.id]"><i class="fas fa-calendar"></i>
                     </button>
                     <button mdbBtn type="button" color="danger" size="sm" mdbWavesEffect
-                            [routerLink]="['/excluir', row.id]"><i class="fas fa-times"></i>
+                            (click)="deleteQuestion(row)"><i class="fas fa-times"></i>
                     </button>
                 </td>
             </tr>

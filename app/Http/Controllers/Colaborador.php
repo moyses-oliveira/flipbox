@@ -34,22 +34,20 @@ class Colaborador
             $response = $recorder->save($model, $request->post());
             return response()->json($response);
         } catch (\Exception $e) {
+            echo $e->getMessage();
             return response()->json($e);
         }
     }
 
-    public function excluir($id)
+    public function rm($id)
     {
         try {
-            $model = Model::find($id);
-            $model->delete();
-            return response()->json($model->toArray());
+            ColaboradorPonto::where(['fkColaborador' => $id])->delete();
+            Model::find($id)->delete();
+            return $this->listing();
         } catch (\Exception $e) {
             return response()->json($e);
         }
     }
 
-    public function lancamentos($colaborador) {
-        return ColaboradorPonto::where('fkColaborador','=', $colaborador)->get()->toArray();
-    }
 }

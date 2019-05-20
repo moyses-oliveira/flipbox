@@ -11,7 +11,9 @@ return [
     |
     */
     'rules'                => [
-        'repeated'=>'Já existe um registro com este :attribute'
+        'repeated'=>'Já existe um registro com este :attribute',
+        'ColaboradorPontoAvaliableInterval'=>'Já existe um registro neste intervalo',
+        'doc'=>':attribute inválido'
     ],
     'accepted'             => 'O campo :attribute deve ser aceito.',
     'active_url'           => 'O campo :attribute não é uma URL válida.',

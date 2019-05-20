@@ -3,7 +3,7 @@ import {Observable} from "rxjs/index";
 import {HttpClient} from "@angular/common/http";
 import {Ponto} from "../models/ponto";
 
-const API_URL: string = 'http://127.0.0.1:8000/api';
+const API_URL: string = '/api';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +14,20 @@ export class ColaboradorPontoService {
     }
 
     getCollection(colaborador:number): Observable<Ponto[]> {
-        return this.http.get<Ponto[]>(API_URL + '/colaborador/lancamentos/' + colaborador, {
+        return this.http.get<Ponto[]>(API_URL + '/colaborador-ponto/lancamentos/' + colaborador, {
             headers: {'Accept': 'application/json'}
         });
     }
 
-    load(id:number): Observable<Ponto> {
-        return this.http.get<Ponto>(API_URL + '/colaborador/load/' + id, {
+    save(data:Ponto, colaborador:number, id:number): Observable<object> {
+        data.fkColaborador = colaborador;
+        return this.http.post<object>(API_URL + '/colaborador-ponto/save/' + colaborador + (id ? '/' + id : ''), data, {
             headers: {'Accept': 'application/json'}
         });
     }
 
-    save(data:Ponto, id:number): Observable<object> {
-        return this.http.post<object>(API_URL + '/colaborador/save' + (id ? '/' + id : ''), data, {
+    rm(data:Ponto): Observable<Ponto[]> {
+        return this.http.delete<Ponto[]>(API_URL + '/colaborador-ponto/rm/' + data.id, {
             headers: {'Accept': 'application/json'}
         });
     }

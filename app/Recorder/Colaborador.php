@@ -8,6 +8,8 @@
 
 namespace App\Recorder;
 
+use App\Lib\Validation\Rules\CPF;
+use App\Lib\Validation\Rules\PIS;
 use App\Lib\Validation\Rules\Repeated;
 use App\Models\Colaborador as Model;
 use Illuminate\Support\Facades\Validator;
@@ -40,8 +42,8 @@ class Colaborador
 
         return Validator::make($input, [
             'nome' => ['required', 'string', 'max:255'],
-            'PIS' => ['required', 'string', 'max:16', new Repeated($model)],
-            'CPF' => ['nullable', 'string', 'max:16', new Repeated($model)],
+            'PIS' => ['required', 'string', 'max:16', new Repeated($model), new PIS()],
+            'CPF' => ['nullable', 'string', 'max:16', new Repeated($model), new CPF()],
             'cargo' => ['nullable', 'string', 'max:255'],
             'equipe' => ['nullable', 'string', 'max:255']
         ])->setAttributeNames($labels);

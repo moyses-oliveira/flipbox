@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {ColaboradorService} from "../../../services/colaborador.service";
 import {Colaborador} from "../../../models/colaborador";
+import {ColaboradorValidatorService} from "../../../services/colaborador-validator.service";
 
 @Component({
     selector: 'app-colaborador-form',
@@ -21,7 +22,12 @@ export class FormComponent implements OnInit {
 
     masks: {};
 
-    constructor(private colaboradorService: ColaboradorService, private route: ActivatedRoute, private router: Router) {
+    constructor(
+        private service: ColaboradorService,
+        private validatorService: ColaboradorValidatorService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
     }
 
     ngOnInit() {
@@ -37,13 +43,15 @@ export class FormComponent implements OnInit {
                 Validators.required,
                 Validators.pattern(/^\d{3}\.\d{5}\.\d{2}-\d{1}$/),
                 Validators.minLength(14),
-                Validators.maxLength(14)
+                Validators.maxLength(14),
+                this.validatorService.validatePIS
             ]),
             CPF: new FormControl(null, [
                 Validators.nullValidator,
                 Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/),
                 Validators.minLength(14),
-                Validators.maxLength(14)
+                Validators.maxLength(14),
+                this.validatorService.validateCPF
             ]),
             equipe: new FormControl(null, [Validators.nullValidator]),
             cargo: new FormControl(null, [Validators.nullValidator])
@@ -55,7 +63,7 @@ export class FormComponent implements OnInit {
             this.title = 'Editar Colaborador';
 
             this.id = +params['id'];
-            let obs:Observable<Colaborador> = this.colaboradorService.load(this.id);
+            let obs:Observable<Colaborador> = this.service.load(this.id);
 
             obs.subscribe((res)=>{ this.form.patchValue(res)});
         });
@@ -90,7 +98,7 @@ export class FormComponent implements OnInit {
             return;
         }
 
-        let obs:Observable<object> = this.colaboradorService.save(this.form.value as Colaborador, this.id);
+        let obs:Observable<object> = this.service.save(this.form.value as Colaborador, this.id);
         obs.subscribe((value) => {
             if(!value['success']) {
                 if(value['errors']['PIS'])
@@ -103,7 +111,7 @@ export class FormComponent implements OnInit {
                 return;
 
             }
-            //this.router.navigate(['/'])
+            this.router.navigate(['/'])
         })
     }
 }

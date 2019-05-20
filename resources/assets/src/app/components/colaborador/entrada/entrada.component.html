@@ -1,19 +1,61 @@
-<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-          <span aria-hidden="true">×</span>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="hidden" id="field-id" formControlName="id" />
+    <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">{{ title }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
-        <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save changes</button>
-      </div>
     </div>
-  </div>
-</div>
+    <div class="modal-body mx-3">
+        <div class="md-form mb-5 text-center">
+            <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
+        </div>
+        <div class="md-form mb-5">
+            <i class="fas fa-calendar prefix grey-text"></i>
+            <input type="date"
+                   id="form-dia" [formControl]="fieldDia" class="form-control validate"
+                   mdbInput>
+
+            <label data-error="wrong" data-success="right" for="form-dia">Dia</label>
+            <mdb-error *ngIf="fieldDia.invalid && (fieldDia.dirty || fieldDia.touched)">Este campo é obrigatório</mdb-error>
+        </div>
+
+        <div class="md-form mb-4">
+            <i class="fas fa-clock prefix grey-text"></i>
+            <input type="text" id="form-inicio" [formControl]="fieldInicio" [dropSpecialCharacters]="false"
+                   class="form-control validate" mdbInput mask="00:00" placeholder="00:00">
+            <label data-error="wrong" data-success="right" for="form-inicio">Início</label>
+            <mdb-error *ngIf="fieldInicio.invalid && (fieldInicio.dirty || fieldInicio.touched)
+                && !fieldInicio.errors?.server && !fieldInicio.errors?.pattern">
+                Este campo é obrigatório
+            </mdb-error>
+            <mdb-error *ngIf="fieldInicio.invalid && fieldInicio.errors?.pattern">
+                Hora inválida
+            </mdb-error>
+            <mdb-error *ngIf="fieldInicio.invalid && fieldInicio.errors?.server">
+                {{ fieldInicio.errors?.server }}
+            </mdb-error>
+        </div>
+
+        <div class="md-form mb-4">
+            <i class="fas fa-clock prefix grey-text"></i>
+            <input type="text" id="form-termino" [formControl]="fieldTermino" [dropSpecialCharacters]="false"
+                   class="form-control validate" mdbInput mask="00:00" placeholder="00:00">
+            <mdb-error *ngIf="fieldTermino.invalid && (fieldTermino.dirty || fieldTermino.touched)
+                && !fieldTermino.errors?.server && !fieldTermino.errors?.pattern">Este campo é obrigatório</mdb-error>
+            <mdb-error *ngIf="fieldTermino.invalid && fieldTermino.errors?.pattern">
+                Hora inválida
+            </mdb-error>
+            <mdb-error *ngIf="fieldTermino.invalid && fieldTermino.errors?.server">
+                {{ fieldTermino.errors?.server }}
+            </mdb-error>
+        </div>
+
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="danger" class="waves-light" mdbWavesEffect (click)="closeModal()">Cancelar</button>
+        <button mdbBtn color="success" class="waves-light" mdbWavesEffect type="submit">Salvar</button>
+    </div>
+</form>

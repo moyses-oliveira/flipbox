@@ -1,28 +1,31 @@
 <div>
-  <span class="help is-info" *ngIf="isLoading">Loading...</span>
   <span class="help is-error" *ngIf="errorMessage">{{ errorMessage }}</span>
-  <table class="table" *ngIf="!isLoading && !errorMessage">
+  <table class="table">
     <thead>
     <tr>
       <th>ID</th>
       <th>Dia</th>
       <th>Inicio</th>
       <th>Termino</th>
-      <th>---</th>
+      <th>
+        <button mdbBtn type="button" color="primary" size="sm" mdbWavesEffect
+                (click)="openForm({})"><i class="fas fa-plus"></i> &nbsp; Novo
+        </button>
+      </th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let row of collection">
       <td>{{ row.id }}</td>
-      <td>{{ row.dia }}</td>
-      <td>{{ row.inicio }}</td>
-      <td>{{ row.termino }}</td>
+      <td>{{ row.dia  | amLocale:'pt-BR' | amDateFormat: 'L' }}</td>
+      <td>{{ row.inicio.substr(0, 5) }} </td>
+      <td>{{ row.termino.substr(0, 5) }}</td>
       <td>
         <button mdbBtn type="button" color="primary" size="sm" mdbWavesEffect
-                [routerLink]="['/editar', row.id]"><i class="fas fa-pen"></i>
+                (click)="openForm(row)"><i class="fas fa-pen"></i>
         </button>
         <button mdbBtn type="button" color="danger" size="sm" mdbWavesEffect
-                [routerLink]="['/excluir', row.id]"><i class="fas fa-times"></i>
+                (click)="deleteQuestion(row)"><i class="fas fa-times"></i>
         </button>
       </td>
     </tr>

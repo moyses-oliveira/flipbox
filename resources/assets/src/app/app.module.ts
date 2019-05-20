@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,15 +13,14 @@ import {
     EntradaComponent as ColaboradorEntrada,
     LancamentosComponent as ColaboradorLancamentos
 } from "./components/colaborador/components";
-import { EntradaComponent } from './components/colaborador/entrada/entrada.component';
+import { AlertDeleteComponent } from "./components/alert-delete/alert-delete.component";
+import { MomentModule } from 'angular2-moment';
 
 const routes: Routes = [
     { path: '', component: ColaboradorLista, pathMatch: 'full' },
     { path: 'novo', component: ColaboradorForm},
     { path: 'editar/:id', component: ColaboradorForm},
     { path: 'lancamentos/:colaborador', component: ColaboradorLancamentos},
-    { path: 'lancamentos/novo/:colaborador', component: ColaboradorEntrada},
-    { path: 'lancamentos/editar/:colaborador/:id', component: ColaboradorEntrada},
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -30,9 +30,7 @@ const routes: Routes = [
     AppComponent,
     ColaboradorLista,
     ColaboradorForm,
-      ColaboradorEntrada,
-    ColaboradorLancamentos,
-    EntradaComponent
+    ColaboradorLancamentos,ColaboradorEntrada, AlertDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +38,15 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
+    MomentModule,
     NgxMaskModule.forRoot(),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    NgbModule,
+    NgbDatepickerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ColaboradorEntrada, AlertDeleteComponent]
 })
 export class AppModule {
 

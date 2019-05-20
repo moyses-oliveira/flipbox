@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';;
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Colaborador} from "../models/colaborador";
 
-const API_URL: string = 'http://127.0.0.1:8000/api';
+
+const API_URL: string = '/api';
 
 @Injectable({
     providedIn: 'root'
@@ -31,4 +32,11 @@ export class ColaboradorService {
             headers: {'Accept': 'application/json'}
         });
     }
+
+    rm(data:Colaborador): Observable<Colaborador[]> {
+        return this.http.delete<Colaborador[]>(API_URL + '/colaborador/rm/' + data.id, {
+            headers: {'Accept': 'application/json'}
+        });
+    }
+
 }

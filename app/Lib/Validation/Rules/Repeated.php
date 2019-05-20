@@ -46,9 +46,6 @@ class Repeated implements Rule
         if($model->getKey())
             $qb->where($model->getKeyName() , '<>', $model->getKey());
 
-        if($model->isFillable('dttDeleted'))
-            $qb->whereNull('dttDeleted');
-
         return $qb->count() < 1;
     }
 
