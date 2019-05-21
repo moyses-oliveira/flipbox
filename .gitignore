@@ -12,5 +12,3 @@ _ide_helper.php
 .env
 artisan
 composer.lock
-/public/dist
-
